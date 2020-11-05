@@ -2,9 +2,12 @@
 
 #include "glm/glm.hpp"
 
-#include "buffer.hpp"
-#include "util.hpp"
-#include "vao.hpp"
+#include "gl_util/buffer.hpp"
+#include "util/mixin.hpp"
+#include "gl_util/vao.hpp"
+
+namespace gl_util
+{
 
 struct Vertex
 {
@@ -12,11 +15,11 @@ struct Vertex
     glm::vec2 texcoord;
 };
 
-class Mesh : NonCopyMoveAble
+class Mesh : public util::NonCopyable, public util::NonMoveable
 {
-    VertexArray vao;
-    ArrayBuffer vbo;
-    IndexBuffer ibo;
+    gl_util::VAO vao;
+    gl_util::ArrayBuffer vbo;
+    gl_util::IndexBuffer ibo;
 
 public:
     Mesh();
@@ -24,3 +27,5 @@ public:
 
     void draw() const;
 };
+
+}
